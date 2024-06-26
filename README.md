@@ -11,9 +11,10 @@
 # chatgpt-captcha3d
 
 <video width="100%" controls autoplay>
-  <source src="./public/sample.mp4" type="video/mp4">
+  <source src="https://github.com/simple16000148819/chatgpt-captcha3d/assets/58202305/74325bd2-7c3f-480d-a698-4f7e97a90c28" type="video/mp4">
 </video>
 
+https://github.com/simple16000148819/chatgpt-captcha3d/assets/58202305/74325bd2-7c3f-480d-a698-4f7e97a90c28
 
 近期使用ChatGPT频繁出现图形验证码真的很烦躁!!! 
 but这个图形验证码挺有意思的(你从未见过的全新版本)
