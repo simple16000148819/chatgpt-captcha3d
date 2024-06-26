@@ -1,8 +1,13 @@
 
 
 //根据验证码id和答案下标 判断是否通过验证
+import {captchaCache, errRet, sucRet} from "~/server/utils";
+
 export default defineEventHandler(async (event) => {
-    event.node.res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    event.node.res.statusCode = 200;
-    return '成功';
+    const query = getQuery(event)
+    if(query?.id&&query?.index&&`${captchaCache.get(query.id)?.sureIndex}`==query.index){
+        return sucRet(event,{})
+    }else {
+        return errRet(event,'验证失败')
+    }
 })

@@ -2,9 +2,11 @@
 ![Logo](./public/favicon.ico)
 
 
-# Nuxt 3 Minimal Starter
+# chatgpt-captcha3d
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+近期使用ChatGpt频繁出现图形验证码真的很烦躁!!!
+but这个图形验证码挺有意思的,那就问问GPT自己高仿一下验证码组件吧!
+
 
 ## Setup
 

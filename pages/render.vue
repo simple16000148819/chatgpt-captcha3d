@@ -6,7 +6,9 @@
 
 <template>
 
-<scene-render></scene-render>
+<client-only>
+  <scene-render></scene-render>
+</client-only>
 
 </template>
 

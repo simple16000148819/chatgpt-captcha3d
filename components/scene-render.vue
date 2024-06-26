@@ -3,6 +3,9 @@
 import * as THREE from 'three'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {getRandomInt, timeout} from "~/utils";
+import {useRoute} from "#app";
+
+const query = useRoute().query;
 
 const sceneCanvas = ref<any>()
 let renderer: any, scene: any, camera: any, robot: any;
@@ -128,9 +131,12 @@ const taskResult: any =
 const preview = ref<typeof taskResult>()
 
 function taskEnd(){//渲染结束通知后端
-  if(taskResult.images&&taskResult.sureTipImage&&taskResult.sureIndex){
+  if(taskResult.images&&taskResult.sureTipImage&&taskResult.sureIndex>=0){
     callServer('render-end',taskResult)
     preview.value = taskResult;
+    //console.log('任务成功')
+  }else{
+    //console.log('任务失败',taskResult)
   }
 }
 
@@ -150,12 +156,13 @@ async function onTexture(positions: any[], canvas: any) {
   for (const pos of positions) {
     const mx = pos.x * size - size / 2
     const my = pos.y * size - size / 2
-    console.log('robot位置:', mx, my, robot);
+    // console.log('robot位置:', mx, my, robot);
     robot?.position?.set(mx, 0, my);
     scene.rotation.y += 60;
     await timeout(20);
     //等待渲染保存压缩截图
-    positionsImages.value.push(renderer.domElement.toDataURL('image/jpeg', 0.5));
+    positionsImages.value.push(renderer.domElement.toDataURL('image/jpeg', 0.8));
+    console.log('生成',pos)
   }
 
   taskResult.images = positionsImages.value;
@@ -173,14 +180,16 @@ function onSureImg(index:number,sureImg:any) {
 
 <template>
   <div class="box">
+
+<!--    <h1 >答案提示图</h1>-->
+<!--    <img :src="preview?.sureTipImage" v-if="!query.headless">-->
+<!--    <h1 >所有位置图</h1>-->
+<!--    <div  class="pv"><img :src="img" v-for="img in preview?.images"></div>-->
+
     <h1>验证码贴图</h1>
     <captcha-texture @on-texture="onTexture" @on-sure-img="onSureImg"></captcha-texture>
     <h1>场景渲染</h1>
     <canvas ref="sceneCanvas" width="300" height="300"></canvas>
-    <h1>答案提示图</h1>
-    <img :src="preview?.sureTipImage">
-    <h1>所有位置图</h1>
-    <div class="pv"><img :src="img" v-for="img in preview?.images"></div>
   </div>
 
 </template>
