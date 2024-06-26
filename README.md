@@ -10,87 +10,57 @@
 
 # chatgpt-captcha3d
 
-<video width="100%" controls autoplay>
-  <source src="https://github.com/simple16000148819/chatgpt-captcha3d/assets/58202305/74325bd2-7c3f-480d-a698-4f7e97a90c28" type="video/mp4">
-</video>
 
 https://github.com/simple16000148819/chatgpt-captcha3d/assets/58202305/74325bd2-7c3f-480d-a698-4f7e97a90c28
 
-近期使用ChatGPT频繁出现图形验证码真的很烦躁!!! 
-but这个图形验证码挺有意思的(你从未见过的全新版本)
+近期使用ChatGPT频繁出现图形验证码真的很烦躁!!!    
+but这个图形验证码挺有意思的(你从未见过的全新版本)   
 那就借助GPT自己高仿一下验证码组件吧!
 
 
 ## 实现思路
 
-1.使用canvas绘制随机图标路径贴图
-2.使用threejs绘制3d场景转为图片
-3.后端使用
+1.选用nuxt3进行全栈开发   
+2.canvas绘制随机图标路径贴图   
+3.threejs绘制3d场景转为图片   
+4.后端使用puppeteer调用headless浏览器打开渲染页进行渲染   
+5.puppeteer监控渲染页面log读取渲染结果返回给api   
 
+## 使用的第三方库
 ```bash
-# npm
-npm install 
+# 生成唯一标识
+npm i uuid
 
-# pnpm
-pnpm install
+# 随机生成唯一的svg头像图标
+npm i @multiavatar/multiavatar
 
-# yarn
-yarn install
+# threejs渲染3D场景
+npm i three
 
-# bun
-bun install
+# 后端控制无头浏览器渲染页面
+npm i puppeteer
+
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## 项目运行调试
 
 ```bash
-# npm
+#克隆项目
+git clone https://github.com/simple16000148819/chatgpt-captcha3d
+cd chatgpt-captcha3d
+npm i
 npm run dev
 
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
+生成地面贴图 [captcha-texture.vue](./components/captcha-texture.vue)  
+渲染3D场景图 [scene-render.vue](./components/scene-render.vue)  
+验证码组件 [scene-render.vue](./components/captcha-modal.vue)  
+后端api生成验证码 [gen.ts](./server/api/gen.ts)  
+后端api校验验证码 [auth.ts](./server/api/auth.ts)  
 
-## Production
+[验证码组件演示:](http://localhost:3000)  [index.vue](./pages/index.vue)  
+[渲染页](http://localhost:3000/render)  [render.vue](./pages/render.vue)  
 
-Build the application for production:
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 联系我
+<img src="./public/wx.jpg" alt="chatgpt" width="300" />
