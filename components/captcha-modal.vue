@@ -2,13 +2,13 @@
 const model = defineModel<any>();
 const index = ref(0);
 const loading = ref(false);
-const result = ref(false)
+
 
 function auth(){
   loading.value = true;
   useFetch('/api/auth',{ method:'get',query:{ id:model.value.id , index:index.value } }).then((res:any)=>{
     console.log('验证结果',res.data.value)
-    result.value = res.data.value.suc
+    model.value.result = res.data.value.suc
     loading.value = false;
   })
 }
@@ -25,7 +25,7 @@ function auth(){
                style="background: rgba(185,182,182,0.85);border-radius: 8px;flex: 1;aspect-ratio: 1/1">
           <div
               style="position: relative;flex: 1;aspect-ratio: 1/1;background: rgba(185,182,182,0.85);border-radius: 8px;">
-            <img :src="model.images[index]" style="width: 100%;height: 100%">
+            <img :src="model.images[index]" style="width: 100%;height: 100%;position: absolute;bottom: 0;border-radius: 8px">
             <div class="arrow-l" @click="()=>{
                 if(index>=1)index-=1;
               }"></div>
@@ -36,11 +36,19 @@ function auth(){
 
         </div>
 
-        <div class="button" :class="loading?'loading':''" @click="auth">{{ result?'验证成功':'提交验证' }}</div>
+        <div class="button" :class="loading?'loading':''" @click="auth">{{ model.result?'验证成功':'提交验证' }}</div>
 
       </div>
     </div>
+
+    <div class="reward" v-if="model.result">
+      <img src="/wx.jpg" style="width: 100%">
+      <p>恭喜您获得添加本人微信机会一次!</p>
+    </div>
+
   </div>
+
+
 
 </template>
 
@@ -149,5 +157,18 @@ function auth(){
     background-color: #63d563;
   }
 }
+
+
+.reward{
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 260px;
+  color: white;
+}
+
 
 </style>
